@@ -29,12 +29,12 @@ def create_user(user: UserSchema):
 
     return user_with_id
 
-
+# Busca lista de usuarios
 @app.get('/api/v1/users', response_model=UserList)
 def read_users():
     return {'users': database}
 
-
+# Atualiza um usuario pelo id
 @app.put('/api/v1/users/{user_id}', response_model=UserPublic)
 def update_user(user_id: int, user: UserSchema):
     if user_id > len(database) or user_id < 1:
@@ -47,7 +47,7 @@ def update_user(user_id: int, user: UserSchema):
     database[user_id - 1] = user_with_id
     return user_with_id
 
-
+# Busca um usuario pelo id
 @app.get('/api/v1/user/{user_id}', response_model=UserPublic)
 def read_user(user_id: int):
     if user_id > len(database) or user_id < 1:
@@ -58,7 +58,7 @@ def read_user(user_id: int):
 
     return database[user_id - 1]
 
-
+# Deleta um usuario pelo id
 @app.delete('/api/v1/users/{user_id}', response_model=Message)
 def delete_user(user_id: int):
     if user_id > len(database) or user_id < 1:
